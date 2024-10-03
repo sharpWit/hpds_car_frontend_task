@@ -1,10 +1,24 @@
-const Content = () => {
+import { FC } from "react";
+import { Vehicle } from "../../lib/types";
+import MapView from "../../components/MapView";
+
+interface Props {
+  vehicles: Vehicle[];
+  selectedVehicle?: Vehicle;
+  onSelectVehicle: (vehicle: Vehicle) => void;
+}
+
+const Content: FC<Props> = ({ vehicles, selectedVehicle, onSelectVehicle }) => {
   return (
     <section
       id="content"
-      className="col-span-12 md:col-span-8 h-[50vh] md:h-screen p-4 bg-primary-content text-primary"
+      className="col-span-12 md:col-span-8 h-[50vh] md:h-screen bg-primary-content text-primary"
     >
-      Content
+      <MapView
+        vehicles={vehicles}
+        selectedVehicle={selectedVehicle}
+        onSelectVehicle={onSelectVehicle}
+      />
     </section>
   );
 };
