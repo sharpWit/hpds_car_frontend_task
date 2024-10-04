@@ -1,10 +1,11 @@
-import "./App.css";
+import { CarsProvider } from "./contexts/listContext";
+import Layout from "./layout/Layout";
 
 function App() {
   return (
-    <>
-      <section>HOME</section>
-    </>
+    <CarsProvider>
+      <Layout />
+    </CarsProvider>
   );
 }
 
