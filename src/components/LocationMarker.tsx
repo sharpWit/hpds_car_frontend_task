@@ -1,41 +1,36 @@
-import { FC, useState } from "react";
+import { useEffect } from "react";
 import { Marker, useMap } from "react-leaflet";
+import { useCarsContext } from "../hooks/useCarsList";
 import { Vehicle } from "../lib/types";
 
-interface Props {
-  vehicles: Vehicle[];
-  selectedVehicle?: Vehicle;
-  onSelectVehicle: (vehicle: Vehicle) => void;
-}
-
-const LocationMarker: FC<Props> = ({
-  vehicles,
-  // selectedVehicle,
-  onSelectVehicle,
-}) => {
-  // console.log("PROPS: ", {
-  //   vehicles,
-  //   selectedVehicle,
-  //   onSelectVehicle,
-  // });
-
+const LocationMarker = () => {
   const map = useMap();
-  const [position, setPosition] = useState<[number, number] | null>(null);
+  const { cars, selectedCar, handleSelectCar } = useCarsContext();
 
   const handleMarkerClick = (vehicle: Vehicle) => {
-    onSelectVehicle(vehicle);
+    handleSelectCar(vehicle);
     const coordinatesArray: [number, number] = [
       vehicle.geoCoordinate.latitude,
       vehicle.geoCoordinate.longitude,
     ];
-    setPosition(coordinatesArray);
     map.flyTo(coordinatesArray, 15);
   };
 
-  console.log("position: ", position);
+  useEffect(() => {
+    if (selectedCar) {
+      map.flyTo(
+        [
+          selectedCar.geoCoordinate.latitude,
+          selectedCar.geoCoordinate.longitude,
+        ],
+        15
+      );
+    }
+  }, [selectedCar, map]);
+
   return (
     <>
-      {vehicles.map((vehicle) => (
+      {cars.map((vehicle) => (
         <Marker
           key={vehicle.vin}
           position={[
