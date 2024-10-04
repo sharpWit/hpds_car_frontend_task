@@ -15,7 +15,7 @@ const SidePanel: FC<Props> = ({
   return (
     <aside
       id="aside"
-      className="col-span-12 md:col-span-4 h-[50vh] md:h-screen px-2 md:p-4 bg-neutral text-neutral-content"
+      className="col-span-12 lg:col-span-4 h-[50vh] lg:h-screen p-2 lg:p-4 bg-neutral text-neutral-content"
     >
       <VehicleList
         vehicles={vehicles}
